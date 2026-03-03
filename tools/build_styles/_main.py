@@ -117,7 +117,7 @@ def _create_icon_definition(icon_id: str, rotate: int | None, qss_property: str)
 
 def _mk_template_standard_icon_stylesheet(icon_map_file: Path) -> str:
     standard_icons: dict[str, dict] = json.loads(icon_map_file.read_text())
-    definitions_by_selector: defaultdict[tuple[str], set[str]] = defaultdict(set)
+    definitions_by_selector: defaultdict[tuple[str, ...], set[str]] = defaultdict(set)
 
     for value in standard_icons.values():
         if "qss" not in value:

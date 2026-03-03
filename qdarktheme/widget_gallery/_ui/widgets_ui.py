@@ -190,7 +190,7 @@ class _TableModel(QAbstractTableModel):
         return flag  # type: ignore
 
     def headerData(  # noqa: N802
-        self, section: int, orientation: Qt.Orientation, role: int = ...
+        self, section: int, orientation: Qt.Orientation, role: int = int(Qt.ItemDataRole.DisplayRole)
     ) -> Any:
         if role != Qt.ItemDataRole.DisplayRole:
             return None
