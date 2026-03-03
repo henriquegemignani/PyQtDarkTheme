@@ -9,12 +9,19 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   update-material-design-icons:
     runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: '3.14'
     steps:
       - uses: actions/checkout@v6
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
-          poetry-install--only: main
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: snok/install-poetry@v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-py${{ env.PYTHON_VERSION }}-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only main
       - name: Download latest svg and update style
         run: |
           poetry run python -c \

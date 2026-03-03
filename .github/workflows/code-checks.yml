@@ -11,12 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-          poetry-install--only: dev
-          poetry-install--no-root: 'true'
-          poetry-virtualenvs-in-project: 'true'
+      - uses: snok/install-poetry@v1
+        with:
+          virtualenvs-in-project: true
+      - uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only dev --no-root
       # Hack to make pre-commit/action to use virtual env pre-commit.
       # pre-commit/action installs pre-commit using following command:
       # `python -m pip install pre-commit`
@@ -33,11 +38,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-          poetry-install--only: main,test
-          poetry-virtualenvs-in-project: 'true'
+      - uses: snok/install-poetry@v1
+        with:
+          virtualenvs-in-project: true
+      - uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only main,test
       - run: poetry run pip install PyQt6
       # Pyright uses dependencies of the interpreter run with the `python`.
       # But `python` doesn't run virtual env interpreter when PATH is default.

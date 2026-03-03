@@ -27,11 +27,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: tlambert03/setup-qt-libs@v1
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.py }}
-          additional-dependency-cache-key: ${{ matrix.qt }}
-          poetry-install--only: github-actions,test,main
+      - uses: snok/install-poetry@v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only github-actions,test,main
       - run: poetry run pip install -U ${{ matrix.qt }}
 
       - run: >-
@@ -64,10 +68,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-          poetry-install--only: github-actions,test,main
+      - uses: snok/install-poetry@v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only github-actions,test,main
 
       - run: >-
           poetry run pytest --color=yes
@@ -88,11 +97,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-          poetry-install--only: main
-          additional-dependency-cache-key: PyInstaller
+      - uses: snok/install-poetry@v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-py3.14-PyInstaller-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only main
       - run: poetry run pip install -U PyInstaller
 
       - name: Make test file
