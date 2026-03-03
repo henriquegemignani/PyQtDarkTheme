@@ -15,9 +15,9 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: tlambert03/setup-qt-libs@v1
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.14"
       - uses: snok/install-poetry@v1
@@ -41,7 +41,7 @@ jobs:
           python -m pip uninstall -y pyqtdarktheme-fork
 
       - name: Create Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.20
         with:
           artifacts: "dist/*"
           token: ${{ secrets.GITHUB_TOKEN }}

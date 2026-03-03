@@ -10,7 +10,7 @@ jobs:
   update-material-design-icons:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.14'
@@ -20,7 +20,7 @@ jobs:
           poetry run python -c \
             "from tools import material_icons; material_icons.update_icons()"
           poetry run python -m tools.build_styles
-      - uses: peter-evans/create-pull-request@v4
+      - uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update material design icons
