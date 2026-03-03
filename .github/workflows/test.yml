@@ -23,6 +23,8 @@ jobs:
           - {py: '3.14', qt: PySide6-Essentials}
     runs-on: ${{ matrix.os }}
     name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
+    env:
+      QT_QPA_PLATFORM: offscreen
 
     steps:
       - uses: actions/checkout@v6
