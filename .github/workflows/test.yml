@@ -61,6 +61,7 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
+          name: screenshots-${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}
           path: ./*.png
 
   pytest-without-qt:
