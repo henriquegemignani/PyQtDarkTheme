@@ -44,5 +44,5 @@ if __name__ == "__main__":
     if platform.system() == "Linux":
         os.environ["QT_QPA_PLATFORM"] = "offscreen"
     app = _Application(_parse_args().name)
-    QTimer.singleShot(10, app._capture_window_img)
+    QTimer.singleShot(500, app._capture_window_img)
     app.exec()
