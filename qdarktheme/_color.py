@@ -136,7 +136,7 @@ class Color:
         """Check if string is hex format."""
         try:
             hex = hex_format.lstrip("#")
-            if not len(hex) in (3, 4, 6, 8):
+            if len(hex) not in (3, 4, 6, 8):
                 raise ValueError
             int(hex, 16)
         except ValueError:
@@ -158,7 +158,7 @@ class Color:
         """Convert hex string to Color object.
 
         Args:
-            color_hex: Color hex string.
+            hex: Color hex string.
 
         Returns:
             Color: Color object converted from hex.

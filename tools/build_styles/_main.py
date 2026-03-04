@@ -86,7 +86,7 @@ def _mk_standard_icon_map(icon_map_file: Path, output: Path):
     }
 
     icon_map_code = pformat(standard_icons, sort_dicts=True, indent=4)
-    for icon_name in standard_icons.keys():
+    for icon_name in standard_icons:
         icon_map_code = icon_map_code.replace(f"'{icon_name}'", f"QStyle.StandardPixmap.{icon_name}")
     icon_map_code = icon_map_code[0] + "\n " + icon_map_code[1:-1] + ",\n" + icon_map_code[-1]
 

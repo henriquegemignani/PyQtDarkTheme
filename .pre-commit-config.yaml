@@ -54,6 +54,8 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.4
     hooks:
+      - id: ruff-check
+        args: [--fix]
       - id: ruff-format
 
   - repo: https://github.com/MarcoGorelli/absolufy-imports
@@ -61,30 +63,6 @@ repos:
     hooks:
       - id: absolufy-imports
 
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.3.0
-    hooks:
-      - id: flake8
-        additional_dependencies: &flake8_dependencies
-          - flake8-pyproject
-          - flake8-pie
-          - flake8-print
-          - flake8-return
-          - flake8-simplify
-          - flake8-bugbear
-          - flake8-docstrings
-          - flake8-comprehensions
-          - flake8-eradicate
-          - flake8-rst-docstrings
-          - flake8-pytest-style
-          - pep8-naming
-        args: ['--ignore=E231,W503']
-
-  - repo: https://github.com/asottile/yesqa
-    rev: v1.5.0
-    hooks:
-      - id: yesqa
-        additional_dependencies: *flake8_dependencies
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0

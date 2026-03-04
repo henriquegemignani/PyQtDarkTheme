@@ -43,7 +43,7 @@ def _parse_theme_color_files() -> dict[str, list[_ThemeColor]]:
     theme_color_properties: dict[str, dict] = validate_property["properties"]
     groups: dict[str, str] = validate_property["groups"]
 
-    theme_colors: dict[str, list[_ThemeColor]] = {group: [] for group in groups.keys()}
+    theme_colors: dict[str, list[_ThemeColor]] = {group: [] for group in groups}
     for id, theme_color_property in theme_color_properties.items():
         inherited_theme_color_properties: dict[str, dict] | None = theme_color_property.get(
             "properties"

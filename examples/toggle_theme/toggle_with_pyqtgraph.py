@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QApplication, QComboBox, QMainWindow, QVBoxLayout,
 import qdarktheme
 
 app = QApplication(sys.argv)
-qdarktheme.setup_theme
+qdarktheme.setup_theme()
 
 main_win = QMainWindow()
 combo_box = QComboBox()
