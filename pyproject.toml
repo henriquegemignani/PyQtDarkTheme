@@ -66,7 +66,7 @@ pytest-mock = "^3.10.0"
 # Latest of Sphinx and flake8 cause dependency comflict.
 # Temporarily keep the Sphinx at v4.x.
 # Latest Sphinx version is v5.x.
-Sphinx = "^4.3.1"
+Sphinx = ">=4.3.1,<6.0.0"
 rstcheck = {extras = ["toml"], version = "^6.1.0"}
 pydata-sphinx-theme = "^0.11.0"
 sphinx-design = "^0.3.0"
