@@ -76,6 +76,9 @@ jobs:
       matrix:  # Python version does not affect tests without Qt.
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash  # for poetry in PATH
 
     steps:
       - uses: actions/checkout@v6
