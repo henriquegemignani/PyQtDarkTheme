@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "PyQtDarkTheme-fork"
-version = "2.3.5"
+version = "2.3.6"
 description = "Flat dark theme for PySide and PyQt."
 authors = ["Yunosuke Ohsugi <63651161+5yutan5@users.noreply.github.com>"]
 license = "MIT"
