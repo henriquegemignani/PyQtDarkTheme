@@ -17,7 +17,7 @@ jobs:
       - uses: snok/install-poetry@v1
         with:
           virtualenvs-in-project: true
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: .venv
           key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}

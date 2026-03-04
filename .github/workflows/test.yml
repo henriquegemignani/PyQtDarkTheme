@@ -39,7 +39,7 @@ jobs:
         with:
           version: 1.8.5   # Last version compatible with python 3.8
           virtualenvs-create: true
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.cache/pypoetry/virtualenvs
           key: >-
@@ -88,7 +88,7 @@ jobs:
       - uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
@@ -117,7 +117,7 @@ jobs:
         with:
           python-version: '3.14'
       - uses: snok/install-poetry@v1
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.cache/pypoetry/virtualenvs
           key: >-
