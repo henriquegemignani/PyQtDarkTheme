@@ -25,31 +25,20 @@ jobs:
     name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
     env:
       QT_QPA_PLATFORM: offscreen
-    defaults:
-      run:
-        shell: bash  # for poetry in PATH
 
     steps:
       - uses: actions/checkout@v6
       - uses: tlambert03/setup-qt-libs@v1
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.py }}
-      - uses: snok/install-poetry@v1
-        with:
-          version: 1.8.5   # Last version compatible with python 3.8
-          virtualenvs-create: true
-      - uses: actions/cache@v5
-        with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: >-
-            ${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}-poetry-${{
-            hashFiles('**/poetry.lock') }}
-      - run: poetry install --only github-actions,test,main
-      - run: poetry run pip install -U ${{ matrix.qt }}
+          enable-cache: true
+          cache-suffix: ${{ matrix.qt }}
+      - run: uv sync --group github-actions --group test
+      - run: uv pip install -U ${{ matrix.qt }}
 
       - run: >-
-          poetry run pytest tests --color=yes
+          uv run pytest tests --color=yes
           --cov=qdarktheme
           --cov=tests
           --cov-report=term-missing
@@ -62,7 +51,7 @@ jobs:
 
       - name: Capture WidgetGallery img
         run: >-
-          poetry run python ./tools/capture.py
+          uv run python ./tools/capture.py
           --name ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}}
 
       - uses: actions/upload-artifact@v7
@@ -76,26 +65,17 @@ jobs:
       matrix:  # Python version does not affect tests without Qt.
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: bash  # for poetry in PATH
 
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.14'
-      - uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-      - uses: actions/cache@v5
-        with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
-      - run: poetry install --only github-actions,test,main
+          enable-cache: true
+      - run: uv sync --group github-actions --group test
 
       - run: >-
-          poetry run pytest --color=yes
+          uv run pytest --color=yes
           --cov=qdarktheme
           --cov=tests
           --cov-report=term-missing
@@ -113,18 +93,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.14'
-      - uses: snok/install-poetry@v1
-      - uses: actions/cache@v5
-        with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: >-
-            ${{ runner.os }}-py3.14-PyInstaller-poetry-${{
-            hashFiles('**/poetry.lock') }}
-      - run: poetry install --only main
-      - run: poetry run pip install -U PyInstaller
+          enable-cache: true
+      - run: uv sync
+      - run: uv pip install -U PyInstaller
 
       - name: Make test file
         run: |
@@ -134,5 +108,5 @@ jobs:
           EOL
           cat -n test.py
 
-      - run: poetry run python -m PyInstaller test.py -n test_app -F
+      - run: uv run python -m PyInstaller test.py -n test_app -F
       - run: ./dist/test_app

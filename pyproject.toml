@@ -1,17 +1,14 @@
-[tool.poetry]
+[project]
 name = "PyQtDarkTheme-fork"
 version = "2.3.6"
 description = "Flat dark theme for PySide and PyQt."
-authors = ["Yunosuke Ohsugi <63651161+5yutan5@users.noreply.github.com>"]
+authors = [
+    {name = "Yunosuke Ohsugi", email = "63651161+5yutan5@users.noreply.github.com"}
+]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/5yutan5/PyQtDarkTheme"
-homepage = "https://github.com/5yutan5/PyQtDarkTheme"
-documentation = "https://pyqtdarktheme.readthedocs.io"
-packages = [{ include = "qdarktheme" }]
-
+requires-python = ">=3.8,<3.15"
 keywords = ["qt", "stylesheets", "dark-theme"]
-
 classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "License :: OSI Approved :: MIT License",
@@ -28,60 +25,62 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
 ]
+dependencies = [
+    "darkdetect>=0.7",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.8,<3.15"
-darkdetect = ">=0.7"
-
-[tool.poetry.group.dev.dependencies]
-black = "^22.10.0"
-isort = "^5.10.1"
-pre-commit = "^3.5.0"
-
-[tool.poetry.group.flake8.dependencies]
-docutils = ">=0.11,<0.21"
-flake8 = "^5.0.4"
-flake8-return = "^1.1.3"
-flake8-pie = "^0.16.0"
-flake8-print = "^5.0.0"
-flake8-docstrings = "^1.6.0"
-flake8-bugbear = "^22.10.25"
-flake8-simplify = "^0.19.3"
-flake8-comprehensions = "^3.10.0"
-flake8-eradicate = "^1.4.0"
-flake8-rst-docstrings = "^0.2.7"
-flake8-pyproject = "^1.2.1"
-flake8-pytest-style = "^1.6.0"
-pep8-naming = "^0.13.2"
-
-[tool.poetry.group.test.dependencies]
-pytest = "^7.2.0"
-pytest-cov = "^4.0.0"
-pytest-randomly = "^3.12.0"
-pytest-qt = "^4.2.0"
-pytest-xvfb = "^2.0.0"
-pytest-mock = "^3.10.0"
-
-[tool.poetry.group.docs.dependencies]
-# Latest of Sphinx and flake8 cause dependency comflict.
-# Temporarily keep the Sphinx at v4.x.
-# Latest Sphinx version is v5.x.
-Sphinx = ">=4.3.1,<6.0.0"
-rstcheck = {extras = ["toml"], version = "^6.1.0"}
-pydata-sphinx-theme = "^0.11.0"
-sphinx-design = "^0.3.0"
-sphinx-copybutton = "^0.5.0"
-
-[tool.poetry.group.github-actions]
-# only used in github actions
-optional = true
-
-[tool.poetry.group.github-actions.dependencies]
-pytest-github-actions-annotate-failures = "^0.1.7"
+[project.urls]
+Repository = "https://github.com/5yutan5/PyQtDarkTheme"
+Homepage = "https://github.com/5yutan5/PyQtDarkTheme"
+Documentation = "https://pyqtdarktheme.readthedocs.io"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["qdarktheme"]
+
+[dependency-groups]
+dev = [
+    "black>=22.10.0",
+    "isort>=5.10.1",
+    "pre-commit>=3.5.0",
+]
+flake8 = [
+    "docutils>=0.11,<0.21",
+    "flake8>=5.0.4",
+    "flake8-return>=1.1.3",
+    "flake8-pie>=0.16.0",
+    "flake8-print>=5.0.0",
+    "flake8-docstrings>=1.6.0",
+    "flake8-bugbear>=22.10.25",
+    "flake8-simplify>=0.19.3",
+    "flake8-comprehensions>=3.10.0",
+    "flake8-eradicate>=1.4.0",
+    "flake8-rst-docstrings>=0.2.7",
+    "flake8-pyproject>=1.2.1",
+    "flake8-pytest-style>=1.6.0",
+    "pep8-naming>=0.13.2",
+]
+test = [
+    "pytest>=7.2.0",
+    "pytest-cov>=4.0.0",
+    "pytest-randomly>=3.12.0",
+    "pytest-qt>=4.2.0",
+    "pytest-xvfb>=2.0.0",
+    "pytest-mock>=3.10.0",
+]
+docs = [
+    "Sphinx>=4.3.1,<6.0.0",
+    "rstcheck[toml]>=6.1.0",
+    "pydata-sphinx-theme>=0.11.0",
+    "sphinx-design>=0.3.0",
+    "sphinx-copybutton>=0.5.0",
+]
+github-actions = [
+    "pytest-github-actions-annotate-failures>=0.1.7",
+]
 
 [tool.flake8]
 max-line-length = 104

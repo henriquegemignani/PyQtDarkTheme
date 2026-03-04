@@ -11,22 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.14'
-      - uses: snok/install-poetry@v1
-        with:
-          virtualenvs-in-project: true
-      - uses: actions/cache@v5
-        with:
-          path: .venv
-          key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
-      - run: poetry install --only main,test
-      - run: poetry run pip install PyQt6
+          enable-cache: true
+      - run: uv sync --group test
+      - run: uv pip install PyQt6
       # Pyright uses dependencies of the interpreter run with the `python`.
       # But `python` doesn't run virtual env interpreter when PATH is default.
       # Override PATH to use virtual env interpreter.
       # This change makes pyright use dependencies of virtual env interpreter.
-      - name: Set Poetry virtual env path to PATH
+      - name: Set uv virtual env path to PATH
         run: echo ${{ github.workspace }}/.venv/bin >> $GITHUB_PATH
       - uses: jakebailey/pyright-action@v3
