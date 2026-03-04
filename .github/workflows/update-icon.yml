@@ -13,22 +13,16 @@ jobs:
       PYTHON_VERSION: '3.14'
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - uses: snok/install-poetry@v1
-      - uses: actions/cache@v5
-        with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: >-
-            ${{ runner.os }}-py${{ env.PYTHON_VERSION }}-poetry-${{
-            hashFiles('**/poetry.lock') }}
-      - run: poetry install --only main
+          enable-cache: true
+      - run: uv sync
       - name: Download latest svg and update style
         run: |
-          poetry run python -c \
+          uv run python -c \
             "from tools import material_icons; material_icons.update_icons()"
-          poetry run python -m tools.build_styles
+          uv run python -m tools.build_styles
       - uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT }}
