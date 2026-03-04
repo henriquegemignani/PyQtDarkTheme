@@ -36,7 +36,9 @@ jobs:
         with:
           version: 1.8.5   # Last version compatible with python 3.8
           virtualenvs-create: true
-          path: true
+      - name: Add Poetry to PATH (Windows)
+        if: runner.os == 'Windows'
+        run: echo "$HOME\.local\bin" >> $GITHUB_PATH
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
@@ -83,7 +85,9 @@ jobs:
       - uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
-          path: true
+      - name: Add Poetry to PATH (Windows)
+        if: runner.os == 'Windows'
+        run: echo "$HOME\.local\bin" >> $GITHUB_PATH
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
