@@ -51,26 +51,15 @@ repos:
       - id: pyupgrade
         args: [--py38-plus]
 
-  - repo: https://github.com/psf/black
-    rev: 22.12.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.4
     hooks:
-      - id: black
-
-  - repo: https://github.com/asottile/blacken-docs
-    rev: 1.20.0
-    hooks:
-      - id: blacken-docs
-        additional_dependencies: [black]
+      - id: ruff-format
 
   - repo: https://github.com/MarcoGorelli/absolufy-imports
     rev: v0.3.1
     hooks:
       - id: absolufy-imports
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 8.0.1
-    hooks:
-      - id: isort
 
   - repo: https://github.com/PyCQA/flake8
     rev: 7.3.0

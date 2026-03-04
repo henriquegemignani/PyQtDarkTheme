@@ -43,8 +43,7 @@ packages = ["qdarktheme"]
 
 [dependency-groups]
 dev = [
-    "black>=22.10.0",
-    "isort>=5.10.1",
+    "ruff>=0.4.0",
     "pre-commit>=3.5.0",
 ]
 flake8 = [
@@ -91,12 +90,9 @@ per-file-ignores = ["**/__init__.py:F401", "examples/**:D103,D100"]
 # See https://github.com/peterjc/flake8-rst-docstrings#configuration
 extend-ignore = ["RST201", "RST203", "RST301"]
 
-[tool.black]
+[tool.ruff]
 line-length = 104
 
-[tool.isort]
-profile = "black"
-line_length = 104
 
 [tool.pyright]
 typeCheckingMode = "basic"
