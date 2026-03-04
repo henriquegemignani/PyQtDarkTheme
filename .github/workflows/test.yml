@@ -38,7 +38,9 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
-          key: ${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          key: >-
+            ${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}-poetry-${{
+            hashFiles('**/poetry.lock') }}
       - run: poetry install --only github-actions,test,main
       - run: poetry run pip install -U ${{ matrix.qt }}
 
@@ -109,7 +111,9 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
-          key: ${{ runner.os }}-py3.14-PyInstaller-poetry-${{ hashFiles('**/poetry.lock') }}
+          key: >-
+            ${{ runner.os }}-py3.14-PyInstaller-poetry-${{
+            hashFiles('**/poetry.lock') }}
       - run: poetry install --only main
       - run: poetry run pip install -U PyInstaller
 

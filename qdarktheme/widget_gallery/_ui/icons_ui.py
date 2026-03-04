@@ -1,4 +1,5 @@
 """The ui to show Qt standard icons."""
+
 from __future__ import annotations
 
 from qdarktheme.qtpy.QtCore import Qt

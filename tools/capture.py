@@ -1,4 +1,5 @@
 """Script capturing the image of widget_gallery."""
+
 from __future__ import annotations
 
 import argparse

@@ -1,4 +1,5 @@
 """Utility methods for qdarktheme."""
+
 from __future__ import annotations
 
 import inspect

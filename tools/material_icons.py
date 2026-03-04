@@ -1,4 +1,5 @@
 """Module for downloading material design icons."""
+
 import json
 import logging
 from urllib import request

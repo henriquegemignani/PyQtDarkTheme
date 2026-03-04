@@ -1,4 +1,5 @@
 """Module for detecting Qt version."""
+
 from __future__ import annotations
 
 from qdarktheme.qtpy.qt_compat import QT_API

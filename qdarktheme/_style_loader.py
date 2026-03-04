@@ -1,4 +1,5 @@
 """Module for loading style data for Qt."""
+
 from __future__ import annotations
 
 import json

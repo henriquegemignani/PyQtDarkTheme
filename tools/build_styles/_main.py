@@ -1,4 +1,5 @@
 """Main module for building style resources for qdarktheme."""
+
 from __future__ import annotations
 
 import json

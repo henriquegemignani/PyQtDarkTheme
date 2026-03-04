@@ -1,4 +1,5 @@
 """Test utility methods in qdarktheme/util.py."""
+
 import pytest
 
 from qdarktheme._util import analyze_version_str, multi_replace

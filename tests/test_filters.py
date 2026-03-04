@@ -1,4 +1,5 @@
 """Tests for the main program."""
+
 import platform
 
 import pytest

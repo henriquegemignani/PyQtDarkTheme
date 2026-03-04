@@ -3,7 +3,7 @@ name: Automated icon update
 
 on:  # yamllint disable-line rule:truthy
   schedule:
-    - cron: '23 1 * * *' # Runs at 01:23 UTC every day
+    - cron: '23 1 * * *'  # Runs at 01:23 UTC every day
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,9 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
-          key: ${{ runner.os }}-py${{ env.PYTHON_VERSION }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          key: >-
+            ${{ runner.os }}-py${{ env.PYTHON_VERSION }}-poetry-${{
+            hashFiles('**/poetry.lock') }}
       - run: poetry install --only main
       - name: Download latest svg and update style
         run: |

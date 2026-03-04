@@ -1,4 +1,5 @@
 """Module allowing for `python -m qdarktheme.widget_gallery`."""
+
 import sys
 
 import qdarktheme

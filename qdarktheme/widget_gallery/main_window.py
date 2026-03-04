@@ -1,4 +1,5 @@
 """Main module of widget gallery."""
+
 import qdarktheme
 from qdarktheme._util import get_qdarktheme_root_path
 from qdarktheme.qtpy.QtCore import QDir, Qt, Slot

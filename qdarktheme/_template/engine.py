@@ -1,4 +1,5 @@
 """Module for handling template text."""
+
 from __future__ import annotations
 
 import json

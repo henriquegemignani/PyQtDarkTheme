@@ -1,4 +1,5 @@
 """Utility methods for tools."""
+
 from __future__ import annotations
 
 import inspect

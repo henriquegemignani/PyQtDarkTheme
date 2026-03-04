@@ -39,6 +39,7 @@ The current QDarkStyleSheet license summary can be viewed at:
 https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/LICENSE.rst
 
 """
+
 # Version of PyQtDarkTheme
 __version__ = "2.3.4"
 
