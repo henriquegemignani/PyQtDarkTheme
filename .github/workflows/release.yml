@@ -41,7 +41,7 @@ jobs:
           python -m pip uninstall -y pyqtdarktheme-fork
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.20
+        uses: ncipollo/release-action@v1.20.0
         with:
           artifacts: "dist/*"
           token: ${{ secrets.GITHUB_TOKEN }}
