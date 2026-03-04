@@ -7,7 +7,7 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.10"
 keywords = ["qt", "stylesheets", "dark-theme"]
 classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
