@@ -98,7 +98,7 @@ def _mk_standard_icon_map(icon_map_file: Path, output: Path):
             f" = {incompatible_standard_icons[icon_name]}  # type: ignore  # noqa: E501\n"
         )
 
-    code = '"""Icon map that overrides standard icons."""\n'
+    code = '"""Icon map that overrides standard icons."""\n\n'
     code += "from qdarktheme.qtpy.QtWidgets import QStyle\n\n"
     code += "NEW_STANDARD_ICON_MAP = "
     code += icon_map_code.replace("'", '"') + "\n"

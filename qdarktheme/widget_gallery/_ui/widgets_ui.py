@@ -307,8 +307,9 @@ class WidgetsUI:
     def setup_ui(self, win: QWidget) -> None:
         """Set up ui."""
         # Widgets
-        h_splitter_1, h_splitter_2 = QSplitter(Qt.Orientation.Horizontal), QSplitter(
-            Qt.Orientation.Horizontal
+        h_splitter_1, h_splitter_2 = (
+            QSplitter(Qt.Orientation.Horizontal),
+            QSplitter(Qt.Orientation.Horizontal),
         )
 
         # Setup widgets

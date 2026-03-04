@@ -9,8 +9,8 @@ from qdarktheme._template import filter
 from qdarktheme.qtpy.qt_compat import QT_API
 from qdarktheme.qtpy.qt_version import __version__
 
-CURRENT_QT_VERSION = f'=={"10.0.0" if __version__ is None else __version__}'
-ANOTHER_QT_VERSION = f'=={"6.0.0" if CURRENT_QT_VERSION == "5.15.0" else "5.15.0"}'
+CURRENT_QT_VERSION = f"=={'10.0.0' if __version__ is None else __version__}"
+ANOTHER_QT_VERSION = f"=={'6.0.0' if CURRENT_QT_VERSION == '5.15.0' else '5.15.0'}"
 CURRENT_QT_API = "PySide6" if QT_API is None else QT_API
 ANOTHER_QT_API = "PyQt5" if CURRENT_QT_API == "PySide6" else "PySide6"
 CURRENT_OS = platform.system()
