@@ -77,7 +77,7 @@ sphinx-copybutton = "^0.5.0"
 optional = true
 
 [tool.poetry.group.github-actions.dependencies]
-pytest-github-actions-annotate-failures = "^0.1.7"
+pytest-github-actions-annotate-failures = ">=0.1.7,<0.4.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
