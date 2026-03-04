@@ -35,6 +35,8 @@ jobs:
       - uses: snok/install-poetry@v1
         with:
           version: 1.8.5   # Last version compatible with python 3.8
+          virtualenvs-create: true
+          path: true
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
@@ -79,6 +81,9 @@ jobs:
         with:
           python-version: '3.14'
       - uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          path: true
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
