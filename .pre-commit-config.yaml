@@ -45,12 +45,6 @@ repos:
         exclude: ^style/colors/themes/validate.json$
         args: ["--schemafile", "style/colors/themes/validate.json"]
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
-    hooks:
-      - id: pyupgrade
-        args: [--py38-plus]
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.4
     hooks:
