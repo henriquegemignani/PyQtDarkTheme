@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:  # Test each python and Qt-lib only once on each os.
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        py: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+        py: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
         include:
           - {py: '3.8', qt: PySide6-Essentials}
           - {py: '3.9', qt: PyQt6}
@@ -20,17 +20,32 @@ jobs:
           - {py: '3.11', qt: PyQt6}
           - {py: '3.12', qt: PySide6-Essentials}
           - {py: '3.13', qt: PySide6-Essentials}
+          - {py: '3.14', qt: PySide6-Essentials}
     runs-on: ${{ matrix.os }}
     name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
+    env:
+      QT_QPA_PLATFORM: offscreen
+    defaults:
+      run:
+        shell: bash  # for poetry in PATH
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: tlambert03/setup-qt-libs@v1
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.py }}
-          additional-dependency-cache-key: ${{ matrix.qt }}
-          poetry-install--only: github-actions,test,main
+      - uses: snok/install-poetry@v1
+        with:
+          version: 1.8.5   # Last version compatible with python 3.8
+          virtualenvs-create: true
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: >-
+            ${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}-poetry-${{
+            hashFiles('**/poetry.lock') }}
+      - run: poetry install --only github-actions,test,main
       - run: poetry run pip install -U ${{ matrix.qt }}
 
       - run: >-
@@ -40,7 +55,7 @@ jobs:
           --cov-report=term-missing
           --cov-report=xml
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -50,8 +65,9 @@ jobs:
           poetry run python ./tools/capture.py
           --name ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v7
         with:
+          name: screenshots-${{ runner.os }}-py${{ matrix.py }}-${{ matrix.qt }}
           path: ./*.png
 
   pytest-without-qt:
@@ -60,13 +76,23 @@ jobs:
       matrix:  # Python version does not affect tests without Qt.
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash  # for poetry in PATH
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          poetry-install--only: github-actions,test,main
+          python-version: '3.14'
+      - uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-py3.14-poetry-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install --only github-actions,test,main
 
       - run: >-
           poetry run pytest --color=yes
@@ -78,7 +104,7 @@ jobs:
           --ignore=tests/test_qdarktheme_with_qt.py
           -p no:pytest-qt
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -86,12 +112,18 @@ jobs:
   PyInstaller:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          poetry-install--only: main
-          additional-dependency-cache-key: PyInstaller
+          python-version: '3.14'
+      - uses: snok/install-poetry@v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: >-
+            ${{ runner.os }}-py3.14-PyInstaller-poetry-${{
+            hashFiles('**/poetry.lock') }}
+      - run: poetry install --only main
       - run: poetry run pip install -U PyInstaller
 
       - name: Make test file

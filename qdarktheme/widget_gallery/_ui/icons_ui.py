@@ -1,7 +1,9 @@
 """The ui to show Qt standard icons."""
+
 from __future__ import annotations
 
 from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtGui import QIcon
 from qdarktheme.qtpy.QtWidgets import (
     QGridLayout,
     QScrollArea,
@@ -31,7 +33,8 @@ class IconsUi:
             button.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
 
             pixmap = getattr(QStyle.StandardPixmap, name)
-            icon = win.style().standardIcon(pixmap)
+            style = win.style()
+            icon = style.standardIcon(pixmap) if style is not None else QIcon()
             button.setIcon(icon)
             layout.addWidget(button, int(i / 4), i % 4)
 

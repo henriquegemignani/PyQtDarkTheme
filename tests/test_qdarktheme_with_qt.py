@@ -1,4 +1,5 @@
 """Tests for the main program with Qt."""
+
 import platform
 import re
 

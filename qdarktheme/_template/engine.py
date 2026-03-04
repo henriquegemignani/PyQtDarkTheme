@@ -1,4 +1,5 @@
 """Module for handling template text."""
+
 from __future__ import annotations
 
 import json
@@ -13,7 +14,7 @@ from qdarktheme._util import multi_replace
 class _Placeholder:
     match_text: str
     value: str | int | float
-    filters: tuple[str]
+    filters: tuple[str, ...]
 
 
 class Template:

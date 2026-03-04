@@ -1,4 +1,5 @@
 """Module for Qt compat."""
+
 from __future__ import annotations
 
 import os

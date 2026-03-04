@@ -1,4 +1,5 @@
 """Test for the SVG manager."""
+
 import pytest
 
 from qdarktheme._color import Color

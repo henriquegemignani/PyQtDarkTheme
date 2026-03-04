@@ -1,4 +1,5 @@
 """This script is inspired by darkdetect(https://github.com/albertosottile/darkdetect)."""
+
 from __future__ import annotations
 
 import ctypes

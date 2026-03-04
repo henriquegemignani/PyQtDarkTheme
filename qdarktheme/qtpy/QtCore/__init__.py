@@ -1,4 +1,5 @@
 """Module for QtCore."""
+
 from qdarktheme.qtpy.qt_compat import QT_API, qt_import_error
 
 if QT_API is None:

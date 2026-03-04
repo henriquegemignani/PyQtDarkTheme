@@ -1,4 +1,5 @@
 """Module building theme color documentation."""
+
 from __future__ import annotations
 
 import json

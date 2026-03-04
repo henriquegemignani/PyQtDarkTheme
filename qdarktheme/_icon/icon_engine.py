@@ -26,11 +26,11 @@ class SvgIconEngine(QIconEngine):
         palette = QGuiApplication.palette()
 
         if mode == QIcon.Mode.Disabled:
-            rgba = palette.color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text).getRgb()
-            color = Color.from_rgba(*rgba)
+            r, g, b, a = palette.color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text).getRgb()
+            color = Color.from_rgba(r or 0, g or 0, b or 0, a or 0)
         else:
-            rgba = palette.text().color().getRgb()
-            color = Color.from_rgba(*rgba)
+            r, g, b, a = palette.text().color().getRgb()
+            color = Color.from_rgba(r or 0, g or 0, b or 0, a or 0)
         self._svg.colored(color)
 
         svg_byte = str(self._svg).encode("utf-8")

@@ -77,7 +77,6 @@ def stop_sync() -> None:
     from qdarktheme.qtpy.QtCore import QCoreApplication
 
     app = QCoreApplication.instance()
-    global _listener
     if not app or not _listener:
         return
     _listener.sig_run.emit(False)

@@ -1,4 +1,5 @@
 """Test for the color manager."""
+
 import re
 
 import pytest

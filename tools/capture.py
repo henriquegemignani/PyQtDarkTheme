@@ -1,4 +1,5 @@
 """Script capturing the image of widget_gallery."""
+
 from __future__ import annotations
 
 import argparse
@@ -32,7 +33,9 @@ class _Application(QApplication):
             if theme == "auto":
                 continue
             qdarktheme.setup_theme(theme)
-            self._gallery.setGeometry(QGuiApplication.primaryScreen().geometry())
+            screen = QGuiApplication.primaryScreen()
+            if screen is not None:
+                self._gallery.setGeometry(screen.geometry())
             self._gallery.grab().save(f"{self._img_name}-{theme}.png")
         self.exit()
 

@@ -1,4 +1,5 @@
 """A module containing multiple filters used by template engine."""
+
 from __future__ import annotations
 
 import platform

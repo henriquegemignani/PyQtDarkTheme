@@ -1,11 +1,12 @@
 """Test WidgetGallery."""
+
 import pytest
 from pytestqt.qtbot import QtBot
 
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 
-@pytest.fixture()
+@pytest.fixture
 def widget_gallery(qtbot: QtBot) -> WidgetGallery:
     """Create test instance of WidgetGallery."""
     widget_gallery = WidgetGallery()

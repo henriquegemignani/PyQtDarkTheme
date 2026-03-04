@@ -3,24 +3,33 @@ name: Automated icon update
 
 on:  # yamllint disable-line rule:truthy
   schedule:
-    - cron: '23 1 * * *' # Runs at 01:23 UTC every day
+    - cron: '23 1 * * *'  # Runs at 01:23 UTC every day
   workflow_dispatch:
 
 jobs:
   update-material-design-icons:
     runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: '3.14'
     steps:
-      - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.1.0
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          poetry-install--only: main
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: snok/install-poetry@v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: >-
+            ${{ runner.os }}-py${{ env.PYTHON_VERSION }}-poetry-${{
+            hashFiles('**/poetry.lock') }}
+      - run: poetry install --only main
       - name: Download latest svg and update style
         run: |
           poetry run python -c \
             "from tools import material_icons; material_icons.update_icons()"
           poetry run python -m tools.build_styles
-      - uses: peter-evans/create-pull-request@v4
+      - uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update material design icons

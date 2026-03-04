@@ -1,4 +1,5 @@
 """Module setting up ui of frame window."""
+
 from qdarktheme.qtpy.QtGui import QIcon
 from qdarktheme.qtpy.QtWidgets import (
     QCalendarWidget,

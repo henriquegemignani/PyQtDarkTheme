@@ -1,4 +1,5 @@
 """Module setting up ui of widgets window."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -190,8 +191,10 @@ class _TableModel(QAbstractTableModel):
         return flag  # type: ignore
 
     def headerData(  # noqa: N802
-        self, section: int, orientation: Qt.Orientation, role: int = ...
+        self, section: int, orientation: Qt.Orientation, role: int | None = None
     ) -> Any:
+        if role is None:
+            role = int(Qt.ItemDataRole.DisplayRole)
         if role != Qt.ItemDataRole.DisplayRole:
             return None
         if orientation == Qt.Orientation.Horizontal:
@@ -226,21 +229,21 @@ class _Group3(QGroupBox):
         tab_table.setModel(_TableModel())
         tab_table.setSortingEnabled(True)
 
-        tab_list.addItems([f"Item {i+1}" for i in range(30)])
+        tab_list.addItems([f"Item {i + 1}" for i in range(30)])
 
         tab_tree.setColumnCount(2)
         for i in range(5):
-            item = QTreeWidgetItem([f"Item {i+1}" for _ in range(2)])
+            item = QTreeWidgetItem([f"Item {i + 1}" for _ in range(2)])
             for j in range(2):
-                item.addChild(QTreeWidgetItem([f"Child Item {i+1}_{j+1}" for _ in range(2)]))
+                item.addChild(QTreeWidgetItem([f"Child Item {i + 1}_{j + 1}" for _ in range(2)]))
             tab_tree.insertTopLevelItem(i, item)
 
         tab_column_model = QStandardItemModel()
         tab_column_model.setHorizontalHeaderLabels(("Header 1", "Header 2"))
         for row in range(5):
-            item = QStandardItem(f"Item {row+1}")
+            item = QStandardItem(f"Item {row + 1}")
             for column in range(15):
-                item.setChild(column, QStandardItem(f"Child Item {row+1}_{column+1}"))
+                item.setChild(column, QStandardItem(f"Child Item {row + 1}_{column + 1}"))
             tab_column_model.setItem(row, item)
         tab_column.setModel(tab_column_model)
 

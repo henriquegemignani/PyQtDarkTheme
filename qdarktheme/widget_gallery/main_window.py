@@ -1,4 +1,5 @@
 """Main module of widget gallery."""
+
 import qdarktheme
 from qdarktheme._util import get_qdarktheme_root_path
 from qdarktheme.qtpy.QtCore import QDir, Qt, Slot
@@ -9,6 +10,7 @@ from qdarktheme.qtpy.QtWidgets import (
     QFontDialog,
     QLabel,
     QMainWindow,
+    QMenu,
     QMenuBar,
     QMessageBox,
     QSizePolicy,
@@ -103,17 +105,22 @@ class _WidgetGalleryUI:
         statusbar.addPermanentWidget(tool_btn_disable)
         statusbar.showMessage("Enable")
 
-        menu_toggle = menubar.addMenu("&Toggle")
+        menu_toggle = QMenu("&Toggle")
+        menubar.addMenu(menu_toggle)
         menu_toggle.addActions((self.action_enable, self.action_disable))
-        menu_theme = menubar.addMenu("&Theme")
+        menu_theme = QMenu("&Theme")
+        menubar.addMenu(menu_theme)
         menu_theme.addActions(self.actions_theme)
-        menu_dialog = menubar.addMenu("&Dialog")
-        menu_option = menubar.addMenu("&Option")
+        menu_dialog = QMenu("&Dialog")
+        menubar.addMenu(menu_dialog)
+        menu_option = QMenu("&Option")
+        menubar.addMenu(menu_option)
         menu_option.addActions(self.actions_corner_radius)
         menu_dialog.addActions(
             (self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog)
         )
-        menu_message_box = menu_dialog.addMenu("&Messages")
+        menu_message_box = QMenu("&Messages")
+        menu_dialog.addMenu(menu_message_box)
         menu_message_box.addActions(self.actions_message_box)
 
         tool_btn_settings.setMenu(menu_toggle)
@@ -194,11 +201,15 @@ class WidgetGallery(QMainWindow):
     @Slot()
     def _toggle_state(self) -> None:
         state: str = self.sender().text()  # type: ignore
-        self._ui.central_window.centralWidget().setEnabled(state == "Enable")
+        central_widget = self._ui.central_window.centralWidget()
+        assert central_widget is not None
+        central_widget.setEnabled(state == "Enable")
         self._ui.toolbar.setEnabled(state == "Enable")
         self._ui.action_enable.setEnabled(state == "Disable")
         self._ui.action_disable.setEnabled(state == "Enable")
-        self.statusBar().showMessage(state)
+        status_bar = self.statusBar()
+        assert status_bar is not None
+        status_bar.showMessage(state)
 
     @Slot()
     def _change_theme(self) -> None:

@@ -1,4 +1,5 @@
 """Module for checking tag validation in GitHub auto release action."""
+
 import argparse
 import logging
 import sys
