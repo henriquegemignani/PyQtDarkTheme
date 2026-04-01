@@ -42,7 +42,7 @@ jobs:
           --cov-report=term-missing
           --cov-report=xml
 
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -82,7 +82,7 @@ jobs:
           --ignore=tests/test_qdarktheme_with_qt.py
           -p no:pytest-qt
 
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
